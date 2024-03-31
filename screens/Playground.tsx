@@ -11,8 +11,6 @@ import Animated, {
 import HighPriestess from '../assets/high-priestess.png';
 import Temperance from '../assets/temperance.png';
 
-// type ContextType = { translateX: number; translateY: number };
-
 // const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const Playground = (): JSX.Element => {
@@ -26,27 +24,6 @@ const Playground = (): JSX.Element => {
   // const boxWidth = useSharedValue(100);
 
   // const radius = useSharedValue(40);
-
-  // const onGestureEvent = useAnimatedGestureHandler<
-  //   PanGestureHandlerGestureEvent,
-  //   ContextType
-  // >({
-  //   onStart: (event, ctx) => {
-  //     ctx.translateX = translateX.value;
-  //     ctx.translateY = translateY.value;
-  //   },
-  //   onActive: (event) => {
-  //     translateX.value = ctx.translateX + event.translationX;
-  //     translateY.value = ctx.translateY + event.translationY;
-
-  //     translateX.value = event.translationX;
-  //     translateY.value = event.translationY;
-  //   },
-  //   onFinish: () => {
-  //     translateX.value = withSpring(0);
-  //     translateY.value = withSpring(0);
-  //   },
-  // });
 
   const panGesture = Gesture.Pan()
     .onUpdate((event) => {
@@ -64,8 +41,12 @@ const Playground = (): JSX.Element => {
   // const handlePressClickMe = () =>
   //   (boxWidth.value = withSpring(boxWidth.value + 50));
 
+  // const handlePressReset = () => (boxWidth.value = withSpring(100));
+
   // const handlePressClickMe = () =>
   //   (radius.value = withSpring(radius.value + 20));
+
+  // const handlePressReset = () => (radius.value = withSpring(40));
 
   const temperanceImageContainerStyle = useAnimatedStyle(() => ({
     transform: [{ translateX: offsetX.value }, { translateY: offsetY.value }],
@@ -87,11 +68,6 @@ const Playground = (): JSX.Element => {
     <>
       <StatusBar backgroundColor="transparent" translucent />
       <View style={styles.container}>
-        {/* <PanGestureHandler onGestureEvent={onGestureEvent}>
-            <Animated.View style={[styles.imageContainer, imageContainerStyle]}>
-              <Image style={styles.image} source={Temperance} />
-            </Animated.View>
-          </PanGestureHandler> */}
         <Animated.View
           style={[styles.imageContainer, highPriestessImageContainerStyle]}
         >
@@ -104,8 +80,7 @@ const Playground = (): JSX.Element => {
             <Image style={styles.image} source={Temperance} />
           </Animated.View>
         </GestureDetector>
-        {/* <Animated.View style={[styles.box, boxStyles]} />
-        <Button color="#7f7fff" title="click me" onPress={handlePressClickMe} /> */}
+        {/* <Animated.View style={[styles.box, boxStyles]} /> */}
         {/* <Svg style={styles.svgContainer}>
           <AnimatedCircle
             cx={200}
@@ -113,8 +88,15 @@ const Playground = (): JSX.Element => {
             fill="#7f7fff"
             animatedProps={circleAnimatedProps}
           />
-        </Svg>
-        <Button color="#7f7fff" title="click me" onPress={handlePressClickMe} /> */}
+        </Svg> */}
+        {/* <View style={styles.buttonsContainer}>
+          <Button
+            color="#7f7fff"
+            title="click me"
+            onPress={handlePressClickMe}
+          />
+          <Button color="#7f7fff" title="Reset" onPress={handlePressReset} />
+        </View> */}
       </View>
     </>
   );
@@ -138,17 +120,21 @@ const styles = StyleSheet.create({
     height: 600,
     width: 300,
   },
-  // box: {
-  //   backgroundColor: '#7f7fff',
-  //   borderRadius: 10,
-  //   height: 100,
-  //   marginBottom: 20,
-  // },
-  // svgContainer: {
-  //   height: 250,
-  //   width: '100%',
-  //   marginBottom: 20,
-  // },
+  box: {
+    backgroundColor: '#7f7fff',
+    borderRadius: 10,
+    height: 100,
+    marginBottom: 20,
+  },
+  svgContainer: {
+    height: 250,
+    width: '100%',
+    marginBottom: 20,
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    gap: 20,
+  },
 });
 
 export default Playground;
