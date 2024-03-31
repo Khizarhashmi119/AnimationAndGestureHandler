@@ -16,10 +16,12 @@ import Temperance from '../assets/temperance.png';
 // const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 const Playground = (): JSX.Element => {
-  const translateX = useSharedValue(0);
-  const translateY = useSharedValue(0);
-  const followX = useDerivedValue(() => withSpring(translateX.value));
-  const followY = useDerivedValue(() => withSpring(translateY.value));
+  const offsetX = useSharedValue(0);
+  const offsetY = useSharedValue(0);
+  const startX = useSharedValue(0);
+  const startY = useSharedValue(0);
+  const followX = useDerivedValue(() => withSpring(offsetX.value));
+  const followY = useDerivedValue(() => withSpring(offsetY.value));
 
   // const boxWidth = useSharedValue(100);
 
@@ -48,12 +50,15 @@ const Playground = (): JSX.Element => {
 
   const panGesture = Gesture.Pan()
     .onUpdate((event) => {
-      translateX.value = event.translationX;
-      translateY.value = event.translationY;
+      offsetX.value = event.translationX + startX.value;
+      offsetY.value = event.translationY + startY.value;
     })
     .onEnd(() => {
-      translateX.value = withSpring(0);
-      translateY.value = withSpring(0);
+      offsetX.value = withSpring(0);
+      offsetY.value = withSpring(0);
+
+      // startX.value = offsetX.value;
+      // startY.value = offsetY.value;
     });
 
   // const handlePressClickMe = () =>
@@ -63,10 +68,7 @@ const Playground = (): JSX.Element => {
   //   (radius.value = withSpring(radius.value + 20));
 
   const temperanceImageContainerStyle = useAnimatedStyle(() => ({
-    transform: [
-      { translateX: translateX.value },
-      { translateY: translateY.value },
-    ],
+    transform: [{ translateX: offsetX.value }, { translateY: offsetY.value }],
   }));
 
   const highPriestessImageContainerStyle = useAnimatedStyle(() => ({
